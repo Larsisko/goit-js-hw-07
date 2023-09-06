@@ -1,4 +1,5 @@
 import { galleryItems } from "./gallery-items.js";
+
 // Change code below this line
 
 console.log(galleryItems);
@@ -15,19 +16,21 @@ const galleryImageList = galleryItems
   })
   .join("")
   .replace(/"/g, "");
-
 galleryList.insertAdjacentHTML("beforeend", galleryImageList);
 
 const event = document.querySelector("ul.gallery");
+let instance;
+
 event.addEventListener("click", onClick);
 function onClick(event) {
   event.preventDefault();
   if (event.target.nodeName === "IMG") {
     const newUrl = event.target.parentElement.getAttribute("href");
-    const newUrLightBox = basicLightbox.create(
+    instance = basicLightbox.create(
       `<img src="${newUrl}" width="1280" height="850"/>`
     );
-    newUrLightBox.show();
+    instance.show();
+
     document.addEventListener("keydown", onEscape);
   }
 
@@ -35,9 +38,8 @@ function onClick(event) {
 }
 function onEscape(event) {
   if (event.key === "Escape") {
-    if (instance.visible()) {
-      instance.close();
-      document.removeEventListener("keydown", onEscape);
-    }
+    instance.close();
+
+    document.removeEventListener("keydown", onEscape);
   }
 }
