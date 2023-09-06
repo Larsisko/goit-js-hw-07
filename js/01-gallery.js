@@ -9,7 +9,7 @@ const galleryImageList = galleryItems
   .map((image) => {
     return `<li class="gallery__item">
       <a class="gallery__link" href="${image.original}">
-        <img class="gallery__image" src="${image.preview}" alt="${image.description}" />
+        <img class="gallery__image" src="${image.preview}" alt="${image.description}" data-source="${image.original}" />
       </a>
     </li>`;
   })
@@ -19,13 +19,25 @@ const galleryImageList = galleryItems
 galleryList.insertAdjacentHTML("beforeend", galleryImageList);
 
 const event = document.querySelector("ul.gallery");
-event.addEventListener("click", (event) => {
+event.addEventListener("click", onClick);
+function onClick(event) {
   event.preventDefault();
   if (event.target.nodeName === "IMG") {
-    const newUrl = event.target.getAttribute("src");
+    const newUrl = event.target.parentElement.getAttribute("href");
     const newUrLightBox = basicLightbox.create(
-      `<img scr="${newUrl}" width="800px" height="600px"/>`
+      `<img src="${newUrl}" width="1280" height="850"/>`
     );
     newUrLightBox.show();
+    document.addEventListener("keydown", onEscape);
   }
-});
+
+  console.log(event.target);
+}
+function onEscape(event) {
+  if (event.key === "Escape") {
+    if (instance.visible()) {
+      instance.close();
+      document.removeEventListener("keydown", onEscape);
+    }
+  }
+}
