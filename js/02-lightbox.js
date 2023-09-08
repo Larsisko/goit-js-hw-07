@@ -12,8 +12,8 @@ const galleryImageList = galleryItems
       </a>
     </li>`;
   })
-  .join("")
-  .replace(/"/g, "");
+  .join("");
+
 galleryList.insertAdjacentHTML("beforeend", galleryImageList);
 const lightbox = new SimpleLightbox(".gallery a", {
   captionPosition: "outside",
