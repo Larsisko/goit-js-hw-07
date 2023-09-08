@@ -14,8 +14,8 @@ const galleryImageList = galleryItems
       </a>
     </li>`;
   })
-  .join("")
-  .replace(/"/g, "");
+  .join("");
+// .replace(/"/g, "");
 galleryList.insertAdjacentHTML("beforeend", galleryImageList);
 
 const event = document.querySelector("ul.gallery");
